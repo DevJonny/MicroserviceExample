@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.API", "Microservice.API\Microservice.API.csproj", "{206B3C78-D6AE-4479-B1B4-D42C6B97B879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Microservice.EventConsumer", "Microservice.EventConsumer\Microservice.EventConsumer.csproj", "{105B357E-00F9-4706-A5C3-38A3FF88918E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{206B3C78-D6AE-4479-B1B4-D42C6B97B879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{206B3C78-D6AE-4479-B1B4-D42C6B97B879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{206B3C78-D6AE-4479-B1B4-D42C6B97B879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{206B3C78-D6AE-4479-B1B4-D42C6B97B879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{105B357E-00F9-4706-A5C3-38A3FF88918E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{105B357E-00F9-4706-A5C3-38A3FF88918E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{105B357E-00F9-4706-A5C3-38A3FF88918E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{105B357E-00F9-4706-A5C3-38A3FF88918E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
