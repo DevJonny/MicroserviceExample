@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Microservice.EventConsumer
+namespace Microservice.Datastore
 {
     public class Program
     {
@@ -13,6 +13,6 @@ namespace Microservice.EventConsumer
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:5002");
+                .UseUrls("http://localhost:5003");
     }
 }

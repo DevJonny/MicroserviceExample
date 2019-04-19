@@ -1,0 +1,103 @@
+{
+	"info": {
+		"_postman_id": "309ca2e5-f164-4ebf-b174-7fe040a1b103",
+		"name": "MicroserviceExample",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "API: Todo",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\":\"\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/todo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"todo"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "API: Todo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5001/api/todo/:todoId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"api",
+						"todo",
+						":todoId"
+					],
+					"variable": [
+						{
+							"key": "todoId",
+							"value": "65b1eebf-e751-452f-9427-1a5acb1937c6"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Store: Todo by Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:5003/api/store/todo/:id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5003",
+					"path": [
+						"api",
+						"store",
+						"todo",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "65b1eebf-e751-452f-9427-1a5acb1937c6"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
