@@ -1,12 +1,46 @@
 # Microservices Example
 
-The example has various stages with added complexity at each stages
-
 ## Stage 1: HTTP communication
 
-[Link to Stage 1](http://github.com/DevJonny/MicroserviceExample/tree/stage1)
+Stage 1 consists of three parts:
 
-This first stage we have two Web API projects. One is the "front-end" API, the 
-second is a "backend" system. They are tightly coupled by a syncronous HTTP calls
-but it keeps things simple.
+1. API - this is our entry point to the system and what we interact with
+2. EventConsumer - this is our service that we use to persist data
+3. Datastore - This simulates a persistent data store
 
+### Microservices.API
+
+We have a two endpoints for the API:
+
+- `POST /api/todo`
+- `GET /api/todo/{id}`
+
+We can create a new To-do by posting:
+
+```json
+{
+    "id": "replace-with-a-guid-or-something-unique"
+}
+```
+
+then we can retrieve the new to-do by calling the get API
+
+```http
+/api/todo/replace-with-a-guid-or-something-unique
+```
+
+When we call `POST` we in turn call a `POST` endpoint on the EventConsumer. This in turn persists the `To-do` to the Datastore which is done via another API.
+
+### Microservices.EventConsumer
+
+For this stage this is just another API, which we want to replace for something that doesn't couple the two services together later on.
+
+When the API calls the EventConsumer we invoke a `POST` endpoint that is responsible for persisting the To-do into the datastore.
+
+### Microservices.Datastore
+
+Our third service/API provides us with an in-memory datastore. We have an API over it to allow CRUD operations of To-Dos.
+
+## Next Steps
+
+For [Stage 2](https://github.com/DevJonny/MicroserviceExample/tree/stage2) we want to remove our coupled communication between the API and the EventConsumer. For this we will use messaging.
