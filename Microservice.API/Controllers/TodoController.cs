@@ -23,16 +23,16 @@ namespace Microservice.API.Controllers
         {
             _config = options.Value;
             _logger = logger;
-            _eventPublisher = HttpEventPublisherFactory.Instance(_config);
+            _eventPublisher = HttpEventPublisherFactory.Instance(_logger);
             _todoRetriever = TodoRetrieverFactory.Instance(_config);
         }
         
         [HttpPost]
-        public async Task<ActionResult<Todo>> Post([FromBody] Todo todo)
+        public ActionResult<Todo> Post([FromBody] Todo todo)
         {
             todo.Id = $"{Guid.NewGuid()}";
             
-            var successfulPublish = await _eventPublisher.SendTodo(todo);
+            var successfulPublish = _eventPublisher.SendTodo(todo);
             
             if (successfulPublish)
                 return CreatedAtAction(nameof(Get), new {id = todo.Id}, todo);
