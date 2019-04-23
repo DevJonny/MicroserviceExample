@@ -1,0 +1,13 @@
+
+### POST a new To-Do
+POST http://localhost:5001/api/todo HTTP/1.1
+Content-Type: application/json
+
+{
+	"id":""
+}
+
+### GET particular To-Do
+
+GET http://localhost:5001/api/Todo/ae0209f4-642c-48ac-8f94-82a4f269f6cc HTTP/1.1
+Content-Type: application/json
