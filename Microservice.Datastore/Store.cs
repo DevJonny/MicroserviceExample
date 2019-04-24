@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microservice.Core;
+using Microservice.Datastore.Model;
 
 namespace Microservice.Datastore
 {

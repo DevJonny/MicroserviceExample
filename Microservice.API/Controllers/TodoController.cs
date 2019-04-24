@@ -1,8 +1,8 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Microservice.API.Model;
 using Microservice.API.Ports;
-using Microservice.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.API.Controllers

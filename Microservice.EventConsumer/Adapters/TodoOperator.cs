@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microservice.Core;
+using Microservice.EventConsumer.Model;
 using Microservice.EventConsumer.Ports;
 using Newtonsoft.Json;
 

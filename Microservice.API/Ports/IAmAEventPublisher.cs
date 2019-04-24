@@ -1,6 +1,5 @@
-using System.Net;
 using System.Threading.Tasks;
-using Microservice.Core;
+using Microservice.API.Model;
 
 namespace Microservice.API.Ports
 {

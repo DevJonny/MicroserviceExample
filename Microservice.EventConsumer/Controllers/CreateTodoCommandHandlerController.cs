@@ -1,9 +1,6 @@
-using System;
 using System.Threading.Tasks;
 using Microservice.API;
 using Microservice.API.Adapters;
-using Microservice.Core;
-using Microservice.Datastore;
 using Microservice.EventConsumer.Model;
 using Microservice.EventConsumer.Ports;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +32,7 @@ namespace Microservice.EventConsumer.Controllers
                 Id = command.Id
             };
 
-            _crudTodos.Insert(todo);
+            await _crudTodos.Insert(todo);
             
             return Created(string.Format(_config.StoreSelectTodoById, command.Id), todo);
         }

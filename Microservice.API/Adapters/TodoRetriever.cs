@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microservice.API.Model;
 using Microservice.API.Ports;
-using Microservice.Core;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 

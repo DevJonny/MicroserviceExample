@@ -1,4 +1,4 @@
-using Microservice.Core;
+using Microservice.Datastore.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Datastore
