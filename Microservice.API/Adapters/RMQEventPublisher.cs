@@ -37,16 +37,4 @@ namespace Microservice.API.Adapters
             return true;
         }
     }
-    
-    public static class HttpEventPublisherFactory
-    {
-        private static RMQEventPublisher _eventPublisher;
-        public static RMQEventPublisher Instance(ILogger logger)
-        {
-            if (_eventPublisher is null)
-                return _eventPublisher = new RMQEventPublisher(logger);
-
-            return _eventPublisher;
-        }
-    }
 }
