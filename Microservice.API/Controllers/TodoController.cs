@@ -1,12 +1,9 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Microservice.API.Adapters;
 using Microservice.API.Ports;
 using Microservice.Core;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace Microservice.API.Controllers
 {
@@ -14,17 +11,15 @@ namespace Microservice.API.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly Config _config;
-        private readonly ILogger _logger;
         private readonly IAmAEventPublisher _eventPublisher;
         private readonly IAmATodoRetriever _todoRetriever;
 
-        public TodoController(IOptions<Config> options, ILogger<TodoController> logger)
+        public TodoController(
+            IAmAEventPublisher eventPublisher,
+            IAmATodoRetriever todoRetriever)
         {
-            _config = options.Value;
-            _logger = logger;
-            _eventPublisher = HttpEventPublisherFactory.Instance(_config);
-            _todoRetriever = TodoRetrieverFactory.Instance(_config);
+            _eventPublisher = eventPublisher;
+            _todoRetriever = todoRetriever;
         }
         
         [HttpPost]

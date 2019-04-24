@@ -3,6 +3,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microservice.API.Ports;
 using Microservice.Core;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Microservice.API.Adapters
@@ -12,9 +13,9 @@ namespace Microservice.API.Adapters
         private readonly Config _config;
         private readonly HttpClient _httpClient;
 
-        public HttpEventPublisher(Config config)
+        public HttpEventPublisher(IOptions<Config> options)
         {
-            _config = config;
+            _config = options.Value;
             _httpClient = new HttpClient();
         }
         
@@ -25,18 +26,6 @@ namespace Microservice.API.Adapters
             var response = await _httpClient.PostAsync(_config.TodoEventHandlerUri, new StringContent(todoJson, Encoding.Default, "application/json"));
 
             return response.IsSuccessStatusCode;
-        }
-    }
-
-    public static class HttpEventPublisherFactory
-    {
-        private static HttpEventPublisher _eventPublisher;
-        public static HttpEventPublisher Instance(Config config)
-        {
-            if (_eventPublisher is null)
-                return _eventPublisher = new HttpEventPublisher(config);
-
-            return _eventPublisher;
         }
     }
 }

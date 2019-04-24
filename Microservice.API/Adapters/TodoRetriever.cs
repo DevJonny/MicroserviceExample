@@ -1,8 +1,8 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using System.Xml;
 using Microservice.API.Ports;
 using Microservice.Core;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 
 namespace Microservice.API.Adapters
@@ -12,9 +12,9 @@ namespace Microservice.API.Adapters
         private readonly Config _config;
         private readonly HttpClient _httpClient;
 
-        public TodoRetriever(Config config)
+        public TodoRetriever(IOptions<Config> options)
         {
-            _config = config;
+            _config = options.Value;
             _httpClient = new HttpClient();
         }
 
@@ -23,19 +23,6 @@ namespace Microservice.API.Adapters
             var todoJson = await _httpClient.GetStringAsync(string.Format(_config.StoreSelectTodoById, id));
 
             return JsonConvert.DeserializeObject<Todo>(todoJson);
-        }
-    }
-
-    public static class TodoRetrieverFactory
-    {
-        private static TodoRetriever _todoRetriever;
-
-        public static TodoRetriever Instance(Config config)
-        {
-            if (_todoRetriever is null)
-                return _todoRetriever = new TodoRetriever(config);
-
-            return _todoRetriever;
         }
     }
 }
