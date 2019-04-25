@@ -1,4 +1,4 @@
-using Microservice.Core;
+using Microservice.Datastore.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.Datastore
@@ -7,17 +7,27 @@ namespace Microservice.Datastore
     [ApiController]
     public class StoreController : ControllerBase
     {
+        private readonly Store _store;
+
+        public StoreController(Store store)
+        {
+            _store = store;
+        }
+
         [HttpPost]
         public ActionResult<Todo> InsertTodo([FromBody] Todo todo)
         {
-            Store.Instance()[typeof(Todo)].Add(todo.Id, todo);
-            return todo;
+            _store.Insert<Todo>(todo);
+            
+            return CreatedAtAction(nameof(SelectOneTodo), new { todo.Id }, todo);
         }
 
         [HttpGet("todo/{id}")]
         public ActionResult<Todo> SelectOneTodo(string id)
         {
-            return Store.Instance()[typeof(Todo)][id] as Todo;
+            var todo = _store.Select<Todo>(id);
+            
+            return Ok(todo);
         }
     }
 }

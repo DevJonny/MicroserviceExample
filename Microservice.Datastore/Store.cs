@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microservice.Core;
+using Microservice.Datastore.Model;
 
 namespace Microservice.Datastore
 {
@@ -8,17 +8,29 @@ namespace Microservice.Datastore
     {
         private static IDictionary<Type,IDictionary<string,object>> _store;
 
-        public static IDictionary<Type, IDictionary<string, object>> Instance()
+        public Store()
         {
-            if (!(_store is null)) 
-                return _store;
-            
-            
             _store = new Dictionary<Type, IDictionary<string, object>>();
-                
-            _store.Add(new KeyValuePair<Type, IDictionary<string, object>>(typeof(Todo), new Dictionary<string, object>()));
+        }
+        
+        public T Insert<T>(IAmAStoreEntity entity) where T : class, IAmAStoreEntity
+        {
+            var entityType = typeof(T);
+            
+            if (!_store.ContainsKey(entityType))
+                _store.Add(new KeyValuePair<Type, IDictionary<string, object>>(entityType, new Dictionary<string, object>()));
 
-            return _store;
+            if (entity.Id is null)
+                entity.Id = $"{Guid.NewGuid()}";
+            
+            _store[entityType].Add(entity.Id, entity);
+
+            return entity as T;
+        }
+        
+        public T Select<T>(string id) where T : class, IAmAStoreEntity
+        {
+            return _store[typeof(T)][id] as T;
         }
     }
 }
