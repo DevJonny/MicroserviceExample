@@ -1,5 +1,4 @@
 ﻿using Microservice.API.Adapters;
-using Microservice.API.Ports;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -20,12 +19,11 @@ namespace Microservice.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             var section = Configuration.GetSection("Uris");
             services.Configure<Config>(section);
             
-            services.AddSingleton<IAmAEventPublisher, HttpEventPublisher>();
-            services.AddSingleton<IAmATodoRetriever, TodoRetriever>();
+            services.AddHttpClient<EventConsumerService>();
+            services.AddHttpClient<DatastoreService>();
             
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

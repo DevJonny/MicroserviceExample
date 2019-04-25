@@ -1,8 +1,7 @@
 using System;
-using System.Net;
 using System.Threading.Tasks;
+using Microservice.API.Adapters;
 using Microservice.API.Model;
-using Microservice.API.Ports;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.API.Controllers
@@ -11,15 +10,14 @@ namespace Microservice.API.Controllers
     [ApiController]
     public class TodoController : ControllerBase
     {
-        private readonly IAmAEventPublisher _eventPublisher;
-        private readonly IAmATodoRetriever _todoRetriever;
+        private readonly DatastoreService _datastoreService;
+        private readonly EventConsumerService _eventConsumerService;
 
-        public TodoController(
-            IAmAEventPublisher eventPublisher,
-            IAmATodoRetriever todoRetriever)
+
+        public TodoController(DatastoreService datastoreService, EventConsumerService eventConsumerService)
         {
-            _eventPublisher = eventPublisher;
-            _todoRetriever = todoRetriever;
+            _datastoreService = datastoreService;
+            _eventConsumerService = eventConsumerService;
         }
         
         [HttpPost]
@@ -27,18 +25,17 @@ namespace Microservice.API.Controllers
         {
             todo.Id = $"{Guid.NewGuid()}";
             
-            var successfulPublish = await _eventPublisher.SendTodo(todo);
+            await _eventConsumerService.SendTodo(todo);
             
-            if (successfulPublish)
-                return CreatedAtAction(nameof(Get), new {id = todo.Id}, todo);
-            
-            throw new WebException($"{todo.Id} was not sent successfully");
+            return CreatedAtAction(nameof(Get), new {id = todo.Id}, todo);
         }
         
         [HttpGet("{id}")]
         public async Task<ActionResult<Todo>> Get(string id)
         {
-            return await _todoRetriever.ById(id);
+            var todo = await _datastoreService.SelectTodoById(id);
+
+            return Ok(todo);
         }
     }
 }
