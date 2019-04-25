@@ -1,4 +1,5 @@
 ﻿using Microservice.API;
+using Microservice.API.Adapters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -21,8 +22,11 @@ namespace Microservice.EventConsumer
         public void ConfigureServices(IServiceCollection services)
         {
             var section = Configuration.GetSection("Uris");
-            services.Configure<Config>(section);
             
+            services.Configure<Config>(section); 
+            
+            services.AddHttpClient<DatastoreService>();
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 

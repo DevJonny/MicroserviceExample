@@ -2,9 +2,7 @@ using System.Threading.Tasks;
 using Microservice.API;
 using Microservice.API.Adapters;
 using Microservice.EventConsumer.Model;
-using Microservice.EventConsumer.Ports;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace Microservice.EventConsumer.Controllers
@@ -13,15 +11,13 @@ namespace Microservice.EventConsumer.Controllers
     [ApiController]
     public class CreateTodoCommandHandlerController : ControllerBase
     {
+        private readonly DatastoreService _datastoreService;
         private readonly Config _config;
-        private readonly ILogger _logger;
-        private readonly ICRUDTodos _crudTodos;
 
-        public CreateTodoCommandHandlerController(IOptions<Config> options, ILogger<CreateTodoCommandHandlerController> logger)
+        public CreateTodoCommandHandlerController(DatastoreService datastoreService, IOptions<Config> config)
         {
-            _config = options.Value;
-            _logger = logger;
-            _crudTodos = TodoOperatorFactory.Instance(_config);
+            _datastoreService = datastoreService;
+            _config = config.Value;
         }
 
         [HttpPost]
@@ -32,9 +28,9 @@ namespace Microservice.EventConsumer.Controllers
                 Id = command.Id
             };
 
-            await _crudTodos.Insert(todo);
-            
-            return Created(string.Format(_config.StoreSelectTodoById, command.Id), todo);
+            var location = await _datastoreService.InsertTodo(todo);
+
+            return Created(location, todo);
         }
     }
 }

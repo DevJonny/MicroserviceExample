@@ -5,6 +5,6 @@ namespace Microservice.EventConsumer.Ports
 {
     public interface ICRUDTodos
     {
-        Task<bool> Insert(Todo todo);
+        Task<string> InsertTodo(Todo todo);
     }
 }
