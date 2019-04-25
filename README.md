@@ -41,6 +41,10 @@ When the API calls the EventConsumer we invoke a `POST` endpoint that is respons
 
 Our third service/API provides us with an in-memory datastore. We have an API over it to allow CRUD operations of To-Dos.
 
+## Running Stage 1
+
+To run up Stage 1 you need either use the `run.sh` or `run.ps1` files. This will invoke Docker Compose and start up all three containers on a shared network.
+
 ## Next Steps
 
 For [Stage 2](https://github.com/DevJonny/MicroserviceExample/tree/stage2) we want to remove our coupled communication between the API and the EventConsumer. For this we will use messaging.
