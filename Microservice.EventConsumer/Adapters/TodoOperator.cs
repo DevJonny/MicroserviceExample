@@ -1,7 +1,8 @@
+using System;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Microservice.Core;
+using Microservice.EventConsumer.Model;
 using Microservice.EventConsumer.Ports;
 using Newtonsoft.Json;
 
@@ -16,6 +17,7 @@ namespace Microservice.API.Adapters
         {
             _config = config;
             _httpClient = new HttpClient();
+            _httpClient.BaseAddress = new Uri(_config.BaseDatastoreUri);
         }
 
         public async Task<bool> Insert(Todo todo)

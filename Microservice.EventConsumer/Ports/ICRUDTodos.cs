@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using Microservice.Core;
+using Microservice.EventConsumer.Model;
 
 namespace Microservice.EventConsumer.Ports
 {
