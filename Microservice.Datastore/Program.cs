@@ -13,6 +13,6 @@ namespace Microservice.Datastore
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-                .UseUrls("http://localhost:5003");
+                .UseUrls("http://+:5003");
     }
 }

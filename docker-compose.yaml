@@ -1,7 +1,6 @@
 version: '3'
 
 services:
-
   rabbitmq:
     image: "rabbitmq:3-management"
     hostname: "rabbit"
@@ -12,3 +11,26 @@ services:
       NAME: "rabbitmq"
     volumes:
       - ./rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+    networks: 
+      - backend
+  api:
+    build: ./Microservice.API
+    ports:
+      - "5001:5001"
+    networks:
+      - backend
+  eventconsumer:
+    build: ./Microservice.EventConsumer
+    depends_on: 
+      - rabbitmq
+    networks: 
+      - backend
+  datastore:
+    build: ./Microservice.Datastore
+    ports:
+      - "5003:5003"
+    networks: 
+      - backend
+
+networks:
+  backend:
