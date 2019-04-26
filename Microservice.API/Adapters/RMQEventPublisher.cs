@@ -1,6 +1,6 @@
 using System.Text;
+using Microservice.API.Model;
 using Microservice.API.Ports;
-using Microservice.Core;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -9,15 +9,15 @@ namespace Microservice.API.Adapters
 {
     public class RMQEventPublisher : IAmAEventPublisher
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<RMQEventPublisher> _logger;
         private readonly ConnectionFactory _connectionFactory;
 
         private const string Todo_Queue = "todo";
 
-        public RMQEventPublisher(ILogger logger)
+        public RMQEventPublisher(ILogger<RMQEventPublisher> logger)
         {
             _logger = logger;
-            _connectionFactory = new ConnectionFactory {HostName = "localhost"};
+            _connectionFactory = new ConnectionFactory { HostName = "microserviceexample_rabbitmq_1" };
         }
         
         public bool SendTodo(Todo todo)

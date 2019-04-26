@@ -1,4 +1,4 @@
-﻿namespace Microservice.Core
+namespace Microservice.API.Model
 {
     public class Todo
     {

@@ -1,8 +1,9 @@
 using System;
 using System.Net;
 using System.Threading.Tasks;
+using Microservice.API.Adapters;
+using Microservice.API.Model;
 using Microservice.API.Ports;
-using Microservice.Core;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Microservice.API.Controllers
@@ -16,10 +17,10 @@ namespace Microservice.API.Controllers
 
         public TodoController(
             IAmAEventPublisher eventPublisher,
-            IAmATodoRetriever todoRetriever)
+            DatastoreService datastoreService)
         {
             _eventPublisher = eventPublisher;
-            _todoRetriever = todoRetriever;
+            _todoRetriever = datastoreService;
         }
         
         [HttpPost]
@@ -38,7 +39,7 @@ namespace Microservice.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Todo>> Get(string id)
         {
-            return await _todoRetriever.ById(id);
+            return await _todoRetriever.SelectTodoById(id);
         }
     }
 }

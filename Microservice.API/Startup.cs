@@ -1,4 +1,5 @@
-﻿using Microservice.API.Adapters;
+﻿using System.Net.Security;
+using Microservice.API.Adapters;
 using Microservice.API.Ports;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -23,10 +24,11 @@ namespace Microservice.API
             
             var section = Configuration.GetSection("Uris");
             services.Configure<Config>(section);
-            
+
+            services.AddHttpClient<DatastoreService>();
+
             services.AddSingleton<IAmAEventPublisher, RMQEventPublisher>();
-            services.AddSingleton<IAmATodoRetriever, TodoRetriever>();
-            
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
