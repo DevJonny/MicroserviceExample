@@ -8,12 +8,12 @@ using Newtonsoft.Json;
 
 namespace Microservice.API.Adapters
 {
-    public class TodoOperator : ICRUDTodos
+    public class TodoDatastoreService : ICRUDTodos
     {
         private readonly Config _config;
         private readonly HttpClient _httpClient;
 
-        public TodoOperator(Config config)
+        public TodoDatastoreService(Config config)
         {
             _config = config;
             _httpClient = new HttpClient();
@@ -29,16 +29,16 @@ namespace Microservice.API.Adapters
         }
     }
 
-    public static class TodoOperatorFactory
+    public static class TodoDatastoreServiceFactory
     {
-        private static TodoOperator _todoOperator;
+        private static TodoDatastoreService _todoDatastoreService;
 
-        public static TodoOperator Instance(Config config)
+        public static TodoDatastoreService Instance(Config config)
         {
-            if (_todoOperator is null)
-                return _todoOperator = new TodoOperator(config);
+            if (_todoDatastoreService is null)
+                return _todoDatastoreService = new TodoDatastoreService(config);
 
-            return _todoOperator;
+            return _todoDatastoreService;
         }
     }
 }
