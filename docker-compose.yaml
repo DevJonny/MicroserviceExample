@@ -27,6 +27,8 @@ services:
       - rabbitmq
     networks: 
       - backend
+    environment:
+      - CreateTodoCommandQueue=CreateTodo.Command
   datastore:
     build: ./Microservice.Datastore
     ports:
