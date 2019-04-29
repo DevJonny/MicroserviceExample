@@ -1,10 +1,13 @@
 namespace Microservice.API
 {
-    public class Config
+    public class Uris
     {
-        public string BaseEventConsumerUri { get; set; }
         public string BaseDatastoreUri { get; set; }
-        public string TodoEventHandlerUri { get; set; }
         public string StoreSelectTodoById { get; set; }
+    }
+
+    public class Queues
+    {
+        public string CreateTodoCommandQueue { get; set; }   
     }
 }

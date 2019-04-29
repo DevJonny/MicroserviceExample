@@ -19,6 +19,8 @@ services:
       - "5001:5001"
     networks:
       - backend
+    environment:
+      - CreateTodoCommandQueue=CreateTodo.Command
   eventconsumer:
     build: ./Microservice.EventConsumer
     depends_on: 

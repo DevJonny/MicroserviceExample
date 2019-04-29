@@ -1,4 +1,5 @@
-﻿using System.Net.Security;
+﻿using System;
+using System.Net.Security;
 using Microservice.API.Adapters;
 using Microservice.API.Ports;
 using Microsoft.AspNetCore.Builder;
@@ -21,9 +22,11 @@ namespace Microservice.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var uris = Configuration.GetSection("Uris");
+            var queues = Configuration.GetSection("Queues");
             
-            var section = Configuration.GetSection("Uris");
-            services.Configure<Config>(section);
+            services.Configure<Uris>(uris);
+            services.Configure<Queues>(queues);
 
             services.AddHttpClient<DatastoreService>();
 
