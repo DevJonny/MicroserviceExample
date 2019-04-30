@@ -30,7 +30,7 @@ namespace Microservice.EventConsumer
                 using (var connection = rabbitMqConnectionFactory.CreateConnection())
                 using (var channel = connection.CreateModel())
                 {
-                    new CreateTodoCommandHandler(config, todoDataService, channel).ConfigureReceiver();
+                    HandlerFactory.RegisterHandlers(config, todoDataService, channel);
 
                     Task.Run(() => Thread.Sleep(Timeout.Infinite)).Wait();
                 }
