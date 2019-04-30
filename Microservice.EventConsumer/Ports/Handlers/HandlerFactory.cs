@@ -16,7 +16,12 @@ namespace Microservice.EventConsumer.Ports.Handlers
 
             foreach (var consumer in allConsumers)
             {
-                (Activator.CreateInstance(consumer.AsType(), config, todoDataService, channel) as IAmAConsumer).ConfigureReceiver();
+                var handler = Activator.CreateInstance(consumer.AsType(), config, channel) as IAmAConsumer;
+                
+                if (consumer.ImplementedInterfaces.Contains(typeof(ISetupTodoDatastoreService)))
+                    (handler as ISetupTodoDatastoreService).AddTodoDatastoreService(todoDataService);
+
+                handler.ConfigureReceiver();
             }
         }
     }
